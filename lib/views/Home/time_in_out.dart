@@ -12,7 +12,7 @@ class TimeInOutWidget extends StatefulWidget {
 
 class _TimeInOutWidgetState extends State<TimeInOutWidget> {
   //
-  bool status = false;
+  bool? status = false;
   String userId = Preferences.getUserId();
   late Record record;
   late DateTime time;
@@ -26,8 +26,9 @@ class _TimeInOutWidgetState extends State<TimeInOutWidget> {
 
     record.timeInUpload();
     //
+    await Preferences.setInOut(true);
     setState(() {
-      status = !status;
+      status = true;
     });
   }
 
@@ -39,9 +40,21 @@ class _TimeInOutWidgetState extends State<TimeInOutWidget> {
 
     record.timeOutUpLoad();
     //
+    await Preferences.setInOut(false);
     setState(() {
-      status = !status;
+      status = false;
     });
+  }
+
+  initStatus() async {
+    status = Preferences.getInOut();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    //status = Preferences.getInOut();
+    initStatus();
   }
 
   @override
@@ -77,6 +90,7 @@ class _TimeInOutWidgetState extends State<TimeInOutWidget> {
                     splashFactory: NoSplash.splashFactory,
                     onTap: status == false
                         ? () {
+                            print("Time in");
                             // Time in
                             timeIn();
                           }
@@ -111,6 +125,8 @@ class _TimeInOutWidgetState extends State<TimeInOutWidget> {
                     splashFactory: NoSplash.splashFactory,
                     onTap: status == true
                         ? () {
+                            print("Time out");
+
                             // Time out
                             timeOut();
                           }

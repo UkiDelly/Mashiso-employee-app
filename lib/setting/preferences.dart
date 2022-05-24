@@ -7,7 +7,7 @@ class Preferences {
   static const _keyUserId = "";
 
   // chec if time in or out
-  static const _keyTimeInOut = "∂";
+  static const _keyTimeInOut = ".";
 
   // create an instance
   static Future init() async {
@@ -26,5 +26,5 @@ class Preferences {
       await _preferences.setBool(_keyTimeInOut, status);
 
   // get the time in/out
-  static bool getInOut() => _preferences.getBool(_keyTimeInOut)!;
+  static bool? getInOut() => _preferences.getBool(_keyTimeInOut);
 }

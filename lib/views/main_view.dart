@@ -1,8 +1,11 @@
 import 'package:employee_app/setting/preferences.dart';
-import 'package:employee_app/views/Home/home.dart';
+import 'package:employee_app/views/Record/record_view.dart';
+
 import 'package:employee_app/views/login.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+
+import 'Home/home.dart';
 
 class HomeView extends StatefulWidget {
   String fullName;
@@ -37,7 +40,8 @@ class _HomeViewState extends State<HomeView> {
           controller: pageController,
           children: [
             // Time in/out Page
-            TimeInOutView(fullName: widget.fullName)
+            TimeInOutView(fullName: widget.fullName),
+            const RecordView()
           ],
         ),
       ),
@@ -47,6 +51,7 @@ class _HomeViewState extends State<HomeView> {
         elevation: 10,
         currentIndex: currentIndex,
         onTap: (index) async {
+          print("current index: $currentIndex, pressed index:  $index");
           if (index == 2) {
             // Go back to main page and clean the userId
             await Preferences.saveUserId("");
@@ -54,6 +59,9 @@ class _HomeViewState extends State<HomeView> {
             Navigator.of(context).pushReplacement(PageTransition(
                 child: const LoginView(), type: PageTransitionType.fade));
           }
+
+          // Change page
+          changePage(index);
         },
         items: const [
           // Home Button
