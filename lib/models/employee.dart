@@ -4,14 +4,14 @@ class Employee {
   String userName;
 
   Employee({
-    required this.userName,
+    this.userName = "",
   });
 
-  String userId = "";
+  String? userId = "";
   String fullName = "";
 
   // check if employee is exists
-  checkEmployee() async {
+  Future<bool> checkEmployee() async {
     final employee = await FirebaseFirestore.instance
         .collection('employee')
         .where('username', isEqualTo: userName)

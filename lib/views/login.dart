@@ -10,6 +10,7 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -126,7 +127,7 @@ class __LoginViewsState extends State<_LoginViews> {
 
                         if (exist) {
                           // saved the userId
-                          await Preferences.saveUserId(employee.userId);
+                          await Preferences.saveUserId(employee.userId!);
 
                           // ignore: use_build_context_synchronously
                           Navigator.of(context).pushReplacement(PageTransition(

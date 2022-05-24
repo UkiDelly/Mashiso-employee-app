@@ -1,6 +1,7 @@
 import 'package:employee_app/FireBase/firebase_options.dart';
 import 'package:employee_app/setting/preferences.dart';
 import 'package:employee_app/views/login.dart';
+import 'package:employee_app/views/main_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';

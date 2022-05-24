@@ -19,7 +19,7 @@ class Preferences {
       await _preferences.setString(_keyUserId, userId);
 
   // get the userId
-  static String getUserId() => _preferences.getString(_keyUserId)!;
+  static String? getUserId() => _preferences.getString(_keyUserId);
 
   // set time in/out
   static Future setInOut(bool status) async =>

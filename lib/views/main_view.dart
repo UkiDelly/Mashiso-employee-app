@@ -33,16 +33,20 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       //
+
       body: SafeArea(
-        child: PageView(
-          scrollDirection: Axis.horizontal,
-          physics: const NeverScrollableScrollPhysics(),
-          controller: pageController,
-          children: [
-            // Time in/out Page
-            TimeInOutView(fullName: widget.fullName),
-            const RecordView()
-          ],
+        child: ScrollConfiguration(
+          behavior: MyBehavior(),
+          child: PageView(
+            scrollDirection: Axis.horizontal,
+            physics: const NeverScrollableScrollPhysics(),
+            controller: pageController,
+            children: [
+              // Time in/out Page
+              TimeInOutView(fullName: widget.fullName),
+              const RecordView()
+            ],
+          ),
         ),
       ),
 
@@ -51,7 +55,6 @@ class _HomeViewState extends State<HomeView> {
         elevation: 10,
         currentIndex: currentIndex,
         onTap: (index) async {
-          print("current index: $currentIndex, pressed index:  $index");
           if (index == 2) {
             // Go back to main page and clean the userId
             await Preferences.saveUserId("");
@@ -86,5 +89,14 @@ class _HomeViewState extends State<HomeView> {
         ],
       ),
     );
+  }
+}
+
+//Remove Glow
+class MyBehavior extends ScrollBehavior {
+  @override
+  Widget buildOverscrollIndicator(
+      BuildContext context, Widget child, ScrollableDetails details) {
+    return child;
   }
 }

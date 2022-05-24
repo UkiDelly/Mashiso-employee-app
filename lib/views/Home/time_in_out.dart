@@ -13,7 +13,7 @@ class TimeInOutWidget extends StatefulWidget {
 class _TimeInOutWidgetState extends State<TimeInOutWidget> {
   //
   bool? status = false;
-  String userId = Preferences.getUserId();
+  String? userId = Preferences.getUserId();
   late Record record;
   late DateTime time;
   late Position currentLocation;
@@ -22,7 +22,7 @@ class _TimeInOutWidgetState extends State<TimeInOutWidget> {
   timeIn() async {
     time = DateTime.now();
     currentLocation = await Geolocator.getCurrentPosition();
-    record = Record(userId, time, currentLocation);
+    record = Record(userId: userId!, time: time, location: currentLocation);
 
     record.timeInUpload();
     //
@@ -36,7 +36,7 @@ class _TimeInOutWidgetState extends State<TimeInOutWidget> {
   timeOut() async {
     time = DateTime.now();
     currentLocation = await Geolocator.getCurrentPosition();
-    record = Record(userId, time, currentLocation);
+    record = Record(userId: userId!, time: time, location: currentLocation);
 
     record.timeOutUpLoad();
     //
@@ -53,8 +53,7 @@ class _TimeInOutWidgetState extends State<TimeInOutWidget> {
   @override
   void initState() {
     super.initState();
-    //status = Preferences.getInOut();
-    initStatus();
+    // initStatus();
   }
 
   @override
