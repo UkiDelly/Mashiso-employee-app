@@ -3,6 +3,7 @@ import 'package:employee_app/setting/preferences.dart';
 import 'package:employee_app/views/login.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,10 +23,37 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // This widget is the root of your application.
+//*Service and permission
+  late bool serviceEnabled;
+  late LocationPermission permission;
+
+  //*check the permission
+  checkPermission() async {
+    //check the service in enabled
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+
+    //*check the permission is enabled
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+    }
+
+    setState(() {
+      serviceEnabled;
+      permission;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkPermission();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
             fontFamily: "Inter",

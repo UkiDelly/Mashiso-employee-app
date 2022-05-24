@@ -1,6 +1,6 @@
 import 'package:employee_app/models/employee.dart';
 import 'package:employee_app/setting/preferences.dart';
-import 'package:employee_app/views/home.dart';
+import 'package:employee_app/views/main_view.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -18,9 +18,12 @@ class LoginView extends StatelessWidget {
 
           // Logo
           Center(
-            child: Image.asset(
-              'assets/mashiso.png',
-              scale: 8,
+            child: Hero(
+              tag: 'logo',
+              child: Image.asset(
+                'assets/mashiso.png',
+                scale: 8,
+              ),
             ),
           ),
 
@@ -113,7 +116,8 @@ class __LoginViewsState extends State<_LoginViews> {
                 height: 40,
                 child: ElevatedButton(
                     onPressed: () async {
-                      Employee employee = Employee(name: employeeNickName.text);
+                      Employee employee =
+                          Employee(userName: employeeNickName.text);
 
                       // if the text field is not empty
                       if (_formKey.currentState!.validate()) {
@@ -126,7 +130,9 @@ class __LoginViewsState extends State<_LoginViews> {
 
                           // ignore: use_build_context_synchronously
                           Navigator.of(context).pushReplacement(PageTransition(
-                              child: const Home(),
+                              child: HomeView(
+                                fullName: employee.fullName,
+                              ),
                               type: PageTransitionType.fade));
                         }
 
