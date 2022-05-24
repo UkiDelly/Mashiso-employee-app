@@ -1,6 +1,16 @@
+import 'package:employee_app/FireBase/firebase_options.dart';
+import 'package:employee_app/setting/preferences.dart';
+import 'package:employee_app/views/login.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // Firebase
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // Shared Preferences
+  await Preferences.init();
   runApp(const MyApp());
 }
 
@@ -45,6 +55,6 @@ class _MyAppState extends State<MyApp> {
           surface: Color(0xff1B1B1B),
           onSurface: Color(0xffE2E2E6),
         )),
-        home: const EmployeeApp());
+        home: const LoginView());
   }
 }
